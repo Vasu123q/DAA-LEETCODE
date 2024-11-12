@@ -1,0 +1,26 @@
+class Solution {
+public:
+    ListNode* sortedInsert(ListNode* head, ListNode* node) {
+        if (head == nullptr || head->val >= node->val) {
+            node->next = head;
+            return node;
+        }
+        ListNode* current = head;
+        while (current->next != nullptr && current->next->val < node->val) {
+            current = current->next;
+        }
+        node->next = current->next;
+        current->next = node;
+        return head;
+    }
+    ListNode* insertionSortList(ListNode* head) {
+        ListNode* sorted = nullptr; 
+        ListNode* current = head;
+        while (current != nullptr) {
+            ListNode* next = current->next; 
+            sorted = sortedInsert(sorted, current);
+            current = next; 
+        }
+       return sorted;
+    }
+};
